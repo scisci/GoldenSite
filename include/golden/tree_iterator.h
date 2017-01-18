@@ -6,9 +6,49 @@
 //
 //
 
-#ifndef GoldenSite_treeiterator_h
-#define GoldenSite_treeiterator_h
+#ifndef GOLDEN_TREEITERATOR_H
+#define GOLDEN_TREEITERATOR_H
+
+#include <stack>
+
+namespace golden {
+
+template <class T>
+class TreeIterator {
+public:
+  TreeIterator(T* root)
+  {
+    node_chain_.push(root);
+  }
+  
+  inline bool HasNext() const
+  {
+    return !node_chain_.empty();
+  }
+  
+  T* Next()
+  {
+    if (HasNext()) {
+      T* node = node_chain_.top();
+      node_chain_.pop();
+      
+      if (!node->IsLeaf()) {
+        node_chain_.push(node->right());
+        node_chain_.push(node->left());
+      }
+      
+      return node;
+    }
+    
+    return 0L;
+  }
+
+private:
+  std::stack<T *> node_chain_;
+};
 
 
 
-#endif
+} // namespace golden
+
+#endif // GOLDEN_TREEITERATOR_H

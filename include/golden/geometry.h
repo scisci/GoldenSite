@@ -6,9 +6,37 @@
 //
 //
 
-#ifndef GoldenSite_geometry_h
-#define GoldenSite_geometry_h
+#ifndef GOLDEN_GEOMETRY_H
+#define GOLDEN_GEOMETRY_H
+
+namespace golden {
+
+class  Box {
+public:
+  Box(double left, double top, double right, double bottom)
+  :left(left),
+   top(top),
+   right(right),
+   bottom(bottom)
+  {}
+  
+  inline double width() const
+  {
+    return right - left;
+  }
+  
+  inline double height() const
+  {
+    return bottom - top;
+  }
+  
+  double left;
+  double top;
+  double right;
+  double bottom;
+};
 
 
+}
 
-#endif
+#endif // GOLDEN_GEOMETRY_H
